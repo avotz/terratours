@@ -1034,6 +1034,96 @@ iframe {
     width: 1190px;
   }
 }
+.blog-container a:hover {
+  text-decoration: underline;
+}
+.blog-info,
+.blog-sidebar {
+  width: 100%;
+  padding: 2rem 1rem;
+}
+.blog-info ul,
+.blog-sidebar ul {
+  margin-left: 35px;
+}
+.blog-info .widget-area .widget,
+.blog-sidebar .widget-area .widget {
+  margin-bottom: 2rem;
+}
+.blog-info .widget-area .widget-title,
+.blog-sidebar .widget-area .widget-title {
+  margin-bottom: 0;
+  color: #000;
+}
+.blog-info .widget-area .widget_search .screen-reader-text,
+.blog-sidebar .widget-area .widget_search .screen-reader-text,
+.blog-info .widget-area .widget_search .search-submit,
+.blog-sidebar .widget-area .widget_search .search-submit {
+  display: none;
+}
+.blog-info .post,
+.blog-sidebar .post {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+.blog-info .entry-header,
+.blog-sidebar .entry-header {
+  position: relative;
+}
+.blog-info .entry-meta,
+.blog-sidebar .entry-meta {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #64b4dc;
+  color: #fff;
+  padding: 0 0.5rem;
+}
+.blog-info .entry-meta a,
+.blog-sidebar .entry-meta a {
+  color: #fff;
+}
+.blog-info .entry-content,
+.blog-sidebar .entry-content {
+  margin-top: 0.5rem;
+}
+.blog-sidebar {
+  padding-top: 0;
+}
+.blog-banner {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  height: 30vh;
+  position: relative;
+}
+.blog-banner a {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.search .search-submit {
+  margin-top: 1rem;
+}
+@media screen and (min-width: 768px) {
+  .blog-container {
+    padding-top: 6rem;
+  }
+  .blog-info {
+    width: 68%;
+    padding: 2rem 4rem 2rem 4rem;
+  }
+  .blog-sidebar {
+    width: 30%;
+    border-left: 1px solid #ddd;
+    padding: 2rem;
+  }
+}
 .header {
   height: 70px;
   position: absolute;
@@ -1622,6 +1712,10 @@ body.home .featured-items {
 }
 .owl-carousel .owl-next {
   right: 0;
+}
+.blog-info,
+.blog-sidebar {
+  background: #fff;
 }
 .woocommerce-breadcrumb,
 .product_meta {
