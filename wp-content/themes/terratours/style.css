@@ -1506,8 +1506,9 @@ body.home .featured-items {
     margin-left: 170px;
   }
 }
-/*.main
-	min-height: 648px;*/
+.main {
+  min-height: 648px;
+}
 .page {
   color: #fff;
 }
@@ -1535,7 +1536,7 @@ body.home .featured-items {
   background: #000;
   color: #fff;
   font-size: 12px;
-  position: fixed;
+  position: relative;
   bottom: 0;
   left: 0;
   right: 0;
@@ -1646,11 +1647,11 @@ body.home .featured-items {
   margin: 0;
 }
 .woocommerce div.product {
-  height: 100vh;
   background: #fff;
 }
 @media screen and (min-width: 1024px) {
   .woocommerce div.product {
+    height: 100vh;
     background: transparent;
   }
 }
@@ -1663,14 +1664,27 @@ body.home .featured-items {
   top: 9.5rem;
   left: 1rem;
   z-index: 99;
+  background-color: rgba(255,255,255,0.9);
+}
+@media screen and (min-width: 1024px) {
+  .woocommerce #content div.product .woocommerce-tabs,
+  .woocommerce div.product .woocommerce-tabs,
+  .woocommerce-page #content div.product .woocommerce-tabs,
+  .woocommerce-page div.product .woocommerce-tabs {
+    background-color: transparent;
+  }
 }
 .woocommerce div.product .woocommerce-tabs .panel {
   padding: 0rem 1rem 1rem;
-  background: transparent;
-  color: #fff;
 }
 .woocommerce div.product .woocommerce-tabs .panel ul {
   margin-left: 15px;
+}
+@media screen and (min-width: 1024px) {
+  .woocommerce div.product .woocommerce-tabs .panel {
+    background: transparent;
+    color: #fff;
+  }
 }
 .woocommerce div.product .woocommerce-tabs ul.tabs li {
   background-color: transparent;

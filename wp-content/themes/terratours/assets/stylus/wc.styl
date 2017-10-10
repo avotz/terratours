@@ -16,11 +16,11 @@
     margin: 0
 
 .woocommerce div.product
-    height: 100vh
     background: white
 
 @media screen and (min-width:1024px)
     .woocommerce div.product
+        height: 100vh
         background: transparent
 
 //tabs
@@ -30,16 +30,23 @@
     top 9.5rem
     left 1rem
     z-index: 99;
-    
-    
+    background-color: rgba(255,255,255,.9);
+
+@media screen and (min-width:1024px)
+    .woocommerce #content div.product .woocommerce-tabs, .woocommerce div.product .woocommerce-tabs, .woocommerce-page #content div.product .woocommerce-tabs, .woocommerce-page div.product .woocommerce-tabs
+        background-color: transparent
     
 .woocommerce div.product .woocommerce-tabs .panel
     padding: 0rem 1rem 1rem;
-    background: transparent
-    color white
+    // background: transparent
+    //color white
     //text-shadow: 1px 1px 5px rgba(0,0,0,.85)
     ul 
         margin-left 15px
+@media screen and (min-width:1024px)    
+    .woocommerce div.product .woocommerce-tabs .panel
+        background: transparent
+        color white
 
 .woocommerce div.product .woocommerce-tabs ul.tabs li
     background-color transparent

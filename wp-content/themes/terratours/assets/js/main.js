@@ -77,8 +77,37 @@ $(window).load(function() {
 $(window).resize(resize);
 
 function resize () {
+
+  
+  
+  positionFooter();
+
+
    
 }
+
+
+function positionFooter() {
+          var footerHeight = 0,
+          footerTop = 0,
+          $footer = $(".footer");
+         footerHeight = $footer.height()+16;
+         footerTop = ($(window).scrollTop()+$(window).height()-footerHeight)+"px";
+  
+        if ( ($(document.body).height()+footerHeight) < $(window).height()) {
+            $footer.css({
+                 position: "fixed"
+             })
+         //    }).animate({
+         //         top: footerTop
+         //    })
+        } else {
+            $footer.css({
+                 position: "relative"
+            })
+        }
+        
+  }
 
 
     
