@@ -7,7 +7,7 @@
     $('#bgImage').attr('style', 'background-image: url('+ $(this).attr('rel'));
   });
 
-  $(".gallery-carousel").owlCarousel({
+  $(".gallery-carousel, .page-carousel").owlCarousel({
     animateOut: 'fadeOut',
     items : 1,
     autoplay : false,
@@ -15,7 +15,7 @@
     loop : true,
     nav : true,
     mouseDrag :false,
-    navText : ['<a href="#" class="owl-prev"><i class="fa fa-arrow-left"></i></a>','<a href="#" class="owl-next"> <i class="fa fa-arrow-right"></i></a>']
+    navText : ['<span class="owl-prev"><i class="fa fa-arrow-left"></i></span>','<span class="owl-next"> <i class="fa fa-arrow-right"></i></span>']
     
 });
   

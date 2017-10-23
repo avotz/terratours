@@ -229,6 +229,8 @@ body.home
 		&.link 
 			.hexInner
 				background: url(./img/hexback.png) no-repeat center;
+				&:before
+					display: none
 				&:after
 					font-family 'FontAwesome';
 					content: "\f061";
@@ -315,6 +317,12 @@ body.home
 			text-align: center;
 			transform: rotate(240deg);
 			transform-origin: 140px 120px;
+			&:before
+				background-color: rgba(0,0,0,.35)
+				content: ''
+				position: absolute
+				width: 100%
+				height: 100%
 
 		.hex1
 		.hex2
@@ -415,7 +423,7 @@ body.home
 	min-height: 648px;
 .page 
 	color white
-
+.about
 .contact
 	&-info
 	&-media
@@ -426,6 +434,7 @@ body.home
 			margin-bottom: 1rem
 
 @media screen and (min-width:768px)
+	.about
 	.contact
 		&-info
 		&-media
@@ -513,6 +522,22 @@ body.home
 	&-sidebar
 		background: rgba(white,1)	
 
+.page-carousel
+	border 2px solid white
+.page-gallery
+	background-repeat no-repeat
+	background-size cover
+	background-position center center
+	width 100%
+	height 320px
+	position relative
+	
+	a 
+		position absolute
+		left 0
+		right 0
+		bottom 0
+		top 0
 @import "wc.styl"
 
 
