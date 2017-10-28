@@ -20,7 +20,7 @@ get_header(); ?>
         $thumb_url = wp_get_attachment_image_src($id,'tour-gallery', true);
         ?>
 
-        <div id="bgImage" class="bgPage" style="background-image: url(<?php echo $thumb_url[0] ?>); display:block;"></div>
+        <div id="bgImage" class="bgPage" style="background-image: url('<?php echo get_template_directory_uri();  ?>/img/pattern.png'), url(<?php echo $thumb_url[0] ?>); display:block;"></div>
         <!-- <ul id="bannerNav">
             <li rel="<?php echo $thumb_url[0] ?>" class="on"></li>
         
@@ -28,7 +28,7 @@ get_header(); ?>
         
         
     <?php else : ?>
-            <div id="bgImage" class="bgPage" style="background-image: url(<?php echo get_template_directory_uri();  ?>/img/banner2.png); display:block;"></div>
+            <div id="bgImage" class="bgPage" style="background-image: url('<?php echo get_template_directory_uri();  ?>/img/pattern.png'), url(<?php echo get_template_directory_uri();  ?>/img/banner2.png); display:block;"></div>
             <!-- <ul id="bannerNav">
                 <li rel="<?php echo get_template_directory_uri();  ?>/img/banner2.png" class="on"></li>
             

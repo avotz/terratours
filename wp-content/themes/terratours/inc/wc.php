@@ -63,6 +63,10 @@ function woo_custom_description_tab_content() {
   if ( is_product() && has_term( 'Tour', 'product_cat' )  ) {
     woocommerce_get_template( 'single-product/short-description.php' );
   }else{
+    woocommerce_get_template( 'single-product/tabs/description.php' );
+    if ( is_product() && has_term( 'Private shuttle', 'product_cat' )  ) {
+      echo '<p class="note note-maximum">Maximum groups of 10 people click on the inquiry button to obtain special prices.</p>';
+    }
     woocommerce_get_template( 'single-product/price.php' );
     do_action( 'woocommerce_single_product_summary' );
 
@@ -160,7 +164,11 @@ function custom_override_checkout_fields( $fields ) {
 
      return $fields;
 }
+// add_action( 'woocommerce_checkout_billing', 'my_checkout_msg' );
 
+// function my_checkout_msg() {
+// 	echo '<p>This page is 100% secure. Thank you for your business!</p>';
+// }
 /**
  * Add the field to the checkout
  */
@@ -169,14 +177,46 @@ add_action( 'woocommerce_after_order_notes', 'my_custom_checkout_field' );
 function my_custom_checkout_field( $checkout ) {
 
     echo '<div id="tour_pickup_location">';
-
-    woocommerce_form_field( 'tour_pickup_location', array(
+ 
+        woocommerce_form_field( 'pickup_time', array(
+          'type'          => 'text',
+          'class'         => array('my-field-class form-row-wide'),
+          'label'         => __('Pick up time'),
+          'placeholder'   => __(''),
+          'required'  => true,
+          ), $checkout->get_value( 'pickup_time' ));
+  
+    woocommerce_form_field( 'pickup_location', array(
         'type'          => 'text',
         'class'         => array('my-field-class form-row-wide'),
-        'label'         => __('Pickup Location'),
-        'placeholder'   => __('Pickup'),
+        'label'         => __('Pick up location'),
+        'placeholder'   => __(''),
         'required'  => true,
-        ), $checkout->get_value( 'tour_pickup_location' ));
+        ), $checkout->get_value( 'pickup_location' ));
+    
+        woocommerce_form_field( 'dropoff_location', array(
+          'type'          => 'text',
+          'class'         => array('my-field-class form-row-wide'),
+          'label'         => __('Drop off location'),
+          'placeholder'   => __(''),
+          'required'  => true,
+          ), $checkout->get_value( 'dropoff_location' ));
+        
+          woocommerce_form_field( 'flight', array(
+            'type'          => 'text',
+            'class'         => array('my-field-class form-row-wide'),
+            'label'         => __('Flight'),
+            'placeholder'   => __(''),
+            'required'  => true,
+            ), $checkout->get_value( 'flight' ));
+          
+            woocommerce_form_field( 'airline', array(
+              'type'          => 'text',
+              'class'         => array('my-field-class form-row-wide'),
+              'label'         => __('Airline'),
+              'placeholder'   => __(''),
+              'required'  => true,
+              ), $checkout->get_value( 'airline' ));
 
     /*woocommerce_form_field( 'tour_date', array(
         'type'          => 'text',
@@ -197,11 +237,20 @@ add_action('woocommerce_checkout_process', 'my_custom_checkout_field_process');
 
 function my_custom_checkout_field_process() {
     // Check if set, if its not set add an error.
-    if ( ! $_POST['tour_pickup_location'] )
+    if ( ! $_POST['pickup_location'] )
         wc_add_notice( __( '<strong>Pick up location</strong> is a required field.' ), 'error' );
 
-     /*if ( ! $_POST['tour_date'] )
-        wc_add_notice( __( '<strong>Tour date</strong> is a required field.' ), 'error' );*/
+     if ( ! $_POST['dropoff_location'] )
+        wc_add_notice( __( '<strong>Drop off location</strong> is a required field.' ), 'error' );
+      
+      if ( ! $_POST['flight'] )
+        wc_add_notice( __( '<strong>Flight</strong> is a required field.' ), 'error' );
+
+      if ( ! $_POST['airline'] )
+        wc_add_notice( __( '<strong>Airline</strong> is a required field.' ), 'error' );
+
+        if ( ! $_POST['pickup_time'] )
+        wc_add_notice( __( '<strong>Pick up time</strong> is a required field.' ), 'error' );
 }
 
 /**
@@ -210,12 +259,21 @@ function my_custom_checkout_field_process() {
 add_action( 'woocommerce_checkout_update_order_meta', 'my_custom_checkout_field_update_order_meta' );
 
 function my_custom_checkout_field_update_order_meta( $order_id ) {
-    if ( ! empty( $_POST['tour_pickup_location'] ) ) {
-        update_post_meta( $order_id, 'Pick up location', sanitize_text_field( $_POST['tour_pickup_location'] ) );
+    if ( ! empty( $_POST['pickup_location'] ) ) {
+        update_post_meta( $order_id, 'Pick up location', sanitize_text_field( $_POST['pickup_location'] ) );
     }
-    /* if ( ! empty( $_POST['tour_date'] ) ) {
-        update_post_meta( $order_id, 'Tour date', sanitize_text_field( $_POST['tour_date'] ) );
-    }*/
+    if ( ! empty( $_POST['dropoff_location'] ) ) {
+        update_post_meta( $order_id, 'Drop off location', sanitize_text_field( $_POST['dropoff_location'] ) );
+    }
+    if ( ! empty( $_POST['flight'] ) ) {
+        update_post_meta( $order_id, 'Flight', sanitize_text_field( $_POST['flight'] ) );
+    }
+  if ( ! empty( $_POST['airline'] ) ) {
+      update_post_meta( $order_id, 'Airline', sanitize_text_field( $_POST['airline'] ) );
+  }
+  if ( ! empty( $_POST['pickup_time'] ) ) {
+    update_post_meta( $order_id, 'Pick up time', sanitize_text_field( $_POST['pickup_time'] ) );
+}
 }
 
 /**
@@ -225,7 +283,10 @@ add_action( 'woocommerce_admin_order_data_after_billing_address', 'my_custom_che
 
 function my_custom_checkout_field_display_admin_order_meta($order){
     echo '<p><strong>'.__('Pick up location').':</strong> ' . get_post_meta( $order->id, 'Pick up location', true ) . '</p>';
-    //*echo '<p><strong>'.__('Tour date').':</strong> ' . get_post_meta( $order->id, 'Tour date', true ) . '</p>';**/
+    echo '<p><strong>'.__('Drop off location').':</strong> ' . get_post_meta( $order->id, 'Drop off location', true ) . '</p>';
+    echo '<p><strong>'.__('Flight').':</strong> ' . get_post_meta( $order->id, 'Flight', true ) . '</p>';
+    echo '<p><strong>'.__('Airline').':</strong> ' . get_post_meta( $order->id, 'Airline', true ) . '</p>';
+    echo '<p><strong>'.__('Pick up time').':</strong> ' . get_post_meta( $order->id, 'Pick up time', true ) . '</p>';
 }
 
 

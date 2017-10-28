@@ -826,6 +826,7 @@ input[type="tel"],
 input[type="time"],
 input[type="search"],
 input[type="url"],
+input[type="password"],
 select,
 textarea {
   height: 36px;
@@ -1033,6 +1034,26 @@ iframe {
   .inner {
     width: 1190px;
   }
+}
+.pagination {
+  text-align: center;
+  z-index: 99;
+  position: relative;
+  color: #000;
+  padding: 0.5rem 0;
+}
+.pagination a,
+.pagination .current {
+  color: #fff;
+  background-color: #64b4dc;
+  padding: 0.2rem 0.8rem;
+}
+.pagination a:hover,
+.pagination .current:hover {
+  background-color: #4cb547;
+}
+.pagination .current {
+  background-color: #4cb547;
 }
 .blog-container a:hover {
   text-decoration: underline;
@@ -1274,6 +1295,12 @@ body.page .main {
 }
 body.page .entry-content {
   padding-bottom: 2rem;
+}
+body.page .entry-content .btn {
+  padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+}
+.page-template-page-private .wpcf7-form p {
+  color: #000;
 }
 @media screen and (min-width: 1024px) {
   #bgImage.bgPage {
@@ -1677,6 +1704,7 @@ body.home .featured-items {
   }
   .footer-copyright {
     width: 48%;
+    text-align: right;
   }
 }
 .site-social {
@@ -1754,6 +1782,10 @@ body.home .featured-items {
   right: 0;
   bottom: 0;
   top: 0;
+}
+.note,
+.product-description {
+  line-height: 20px;
 }
 .woocommerce-breadcrumb,
 .product_meta {
@@ -2003,10 +2035,47 @@ body.home .featured-items {
   top: 0;
 }
 form.woocommerce-checkout {
-  padding: 0 1rem;
+  padding: 1rem 1rem;
 }
 .woocommerce-order {
   padding: 1rem;
+}
+.wpmenucart-display-standard {
+  background-color: #4cb547;
+  color: #000;
+}
+@media screen and (min-width: 1000px) {
+  .wpmenucart-display-standard {
+    background-color: #64b4dc;
+    position: absolute !important;
+    right: 0px;
+    top: 50px;
+    z-index: 999;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .wpmenucart-display-standard {
+    background-color: #64b4dc;
+    position: absolute !important;
+    right: 0px;
+    top: 8px;
+    z-index: 999;
+  }
+}
+.product-template-default .woocommerce-error,
+.product-template-default .woocommerce-info,
+.product-template-default .woocommerce-message {
+  z-index: 999;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+.product-template-default .woocommerce-error .button,
+.product-template-default .woocommerce-info .button,
+.product-template-default .woocommerce-message .button {
+  background-color: #64b4dc !important;
+  color: #fff !important;
 }
 
 /*!

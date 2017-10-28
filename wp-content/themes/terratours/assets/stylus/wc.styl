@@ -196,7 +196,40 @@
         top 0
 
 form.woocommerce-checkout
-    padding: 0 1rem
+    padding: 1rem 1rem
 
 .woocommerce-order
     padding: 1rem
+
+.wpmenucart-display-standard
+    background-color: verde
+    color #000
+    
+    
+@media screen and (min-width:1000px)
+    .wpmenucart-display-standard
+        background-color: celeste
+        position: absolute !important;
+        right: 0px;
+        top: 50px;
+        z-index: 999;
+    
+@media screen and (min-width:1200px)
+    .wpmenucart-display-standard
+        background-color: celeste
+        position: absolute !important;
+        right: 0px;
+        top: 8px;
+        z-index: 999;
+
+.product-template-default
+    .woocommerce-error, .woocommerce-info, .woocommerce-message
+        z-index: 999;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        .button
+            background-color: celeste !important
+            color:white !important
+        

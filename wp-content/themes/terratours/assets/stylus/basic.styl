@@ -91,6 +91,7 @@ input[type="tel"]
 input[type="time"]
 input[type="search"]
 input[type="url"]
+input[type="password"]
 select
 textarea
 	height: 36px;
@@ -210,3 +211,20 @@ iframe
 @media screen and (max-width: 1459px) and (min-width: 1200px)
 	.inner
 		width: 1190px;
+
+.pagination
+	text-align: center
+	z-index: 99;
+	position: relative
+	color #000
+	padding: .5rem 0
+	a
+	.current 
+		color #FFF
+		background-color: celeste
+		padding: .2rem .8rem
+		&:hover
+			background-color: verde
+
+	.current
+		background-color: verde

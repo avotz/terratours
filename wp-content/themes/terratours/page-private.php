@@ -19,7 +19,7 @@ get_header(); ?>
         $thumb_url = wp_get_attachment_image_src($id,'tour-gallery', true);
         ?>
 
-        <div id="bgImage" style="background-image: url(<?php echo $thumb_url[0] ?>); display:block;"></div>
+      <div id="bgImage" class="bgPage" style="background-image: url('<?php echo get_template_directory_uri();  ?>/img/pattern.png'), url(<?php echo $thumb_url[0] ?>); display:block;"></div>
         <!-- <ul id="bannerNav">
             <li rel="<?php echo $thumb_url[0] ?>" class="on"></li>
         
@@ -46,13 +46,11 @@ get_header(); ?>
 
 				get_template_part( 'template-parts/content', 'page' );
 
-				// If comments are open or we have at least one comment, load up the comment template.
-				if ( comments_open() || get_comments_number() ) :
-					comments_template();
-				endif;
+				
 
 			endwhile; // End of the loop.
 			?>
+              
 			  <ul class="featured-items">
             	
             
@@ -64,7 +62,7 @@ get_header(); ?>
                   'post_type' => 'product',
                   //'order' => 'ASC',
                   'orderby' => array('menu_order' => 'ASC', 'title' => 'ASC'),
-                  'posts_per_page' => 14,
+                  'posts_per_page' => 50,
                    'paged' => $paged,
                  'tax_query' => array(
                     array(
@@ -102,88 +100,7 @@ get_header(); ?>
                                
                             </a></span></span>
                         </li>
-                        <li class="image">
-                            <span class="hex1"><span class="hex2"><a href="<?php the_permalink(); ?>" class="hexInner">
-                                <span class="title"><?php the_title(); ?></span>
-                                <?php if ( has_post_thumbnail() ) :
-
-                                          $id = get_post_thumbnail_id($post->ID);
-                                          $thumb_url = wp_get_attachment_image_src($id,'tour-item', true);
-                                          ?>
-                                          
-                                          <img src="<?php echo $thumb_url[0] ?>"  alt="<?php the_title(); ?>" title="<?php the_title(); ?>">
-                                        
-                                      <?php endif; ?>
-                                      
-                               
-                            </a></span></span>
-                        </li>
-                        <li class="image">
-                            <span class="hex1"><span class="hex2"><a href="<?php the_permalink(); ?>" class="hexInner">
-                                <span class="title"><?php the_title(); ?></span>
-                                <?php if ( has_post_thumbnail() ) :
-
-                                          $id = get_post_thumbnail_id($post->ID);
-                                          $thumb_url = wp_get_attachment_image_src($id,'tour-item', true);
-                                          ?>
-                                          
-                                          <img src="<?php echo $thumb_url[0] ?>"  alt="<?php the_title(); ?>" title="<?php the_title(); ?>">
-                                        
-                                      <?php endif; ?>
-                                      
-                               
-                            </a></span></span>
-                        </li>
-                        <li class="image">
-                            <span class="hex1"><span class="hex2"><a href="<?php the_permalink(); ?>" class="hexInner">
-                                <span class="title"><?php the_title(); ?></span>
-                                <?php if ( has_post_thumbnail() ) :
-
-                                          $id = get_post_thumbnail_id($post->ID);
-                                          $thumb_url = wp_get_attachment_image_src($id,'tour-item', true);
-                                          ?>
-                                          
-                                          <img src="<?php echo $thumb_url[0] ?>"  alt="<?php the_title(); ?>" title="<?php the_title(); ?>">
-                                        
-                                      <?php endif; ?>
-                                      
-                               
-                            </a></span></span>
-                        </li>
-                        <li class="image">
-                            <span class="hex1"><span class="hex2"><a href="<?php the_permalink(); ?>" class="hexInner">
-                                <span class="title"><?php the_title(); ?></span>
-                                <?php if ( has_post_thumbnail() ) :
-
-                                          $id = get_post_thumbnail_id($post->ID);
-                                          $thumb_url = wp_get_attachment_image_src($id,'tour-item', true);
-                                          ?>
-                                          
-                                          <img src="<?php echo $thumb_url[0] ?>"  alt="<?php the_title(); ?>" title="<?php the_title(); ?>">
-                                        
-                                      <?php endif; ?>
-                                      
-                               
-                            </a></span></span>
-                        </li>
-                        <li class="image">
-                            <span class="hex1"><span class="hex2"><a href="<?php the_permalink(); ?>" class="hexInner">
-                                <span class="title"><?php the_title(); ?></span>
-                                <?php if ( has_post_thumbnail() ) :
-
-                                          $id = get_post_thumbnail_id($post->ID);
-                                          $thumb_url = wp_get_attachment_image_src($id,'tour-item', true);
-                                          ?>
-                                          
-                                          <img src="<?php echo $thumb_url[0] ?>"  alt="<?php the_title(); ?>" title="<?php the_title(); ?>">
-                                        
-                                      <?php endif; ?>
-                                      
-                               
-                            </a></span></span>
-                        </li>
-                      
-                      
+                        
                     <?php
                    
                      

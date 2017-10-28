@@ -53,7 +53,7 @@
   
   
    
-    $('#tour-popup').find('input[name="your-subject"]').val('Inquire for '+$(this).attr('data-title'));
+    $('#tour-popup').find('input[name="your-subject"]').val('Inquiry for '+$(this).attr('data-title'));
     
    
     

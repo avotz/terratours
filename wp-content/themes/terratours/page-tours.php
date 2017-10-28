@@ -19,7 +19,7 @@ get_header(); ?>
         $thumb_url = wp_get_attachment_image_src($id,'tour-gallery', true);
         ?>
 
-        <div id="bgImage" style="background-image: url(<?php echo $thumb_url[0] ?>); display:block;"></div>
+      <div id="bgImage" class="bgPage" style="background-image: url('<?php echo get_template_directory_uri();  ?>/img/pattern.png'), url(<?php echo $thumb_url[0] ?>); display:block;"></div>
         <!-- <ul id="bannerNav">
             <li rel="<?php echo $thumb_url[0] ?>" class="on"></li>
         
@@ -64,7 +64,7 @@ get_header(); ?>
                   'post_type' => 'product',
                   //'order' => 'ASC',
                   'orderby' => array('menu_order' => 'ASC', 'title' => 'ASC'),
-                  'posts_per_page' => 14,
+                  'posts_per_page' => 50,
                    'paged' => $paged,
                  'tax_query' => array(
                     array(
