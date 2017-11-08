@@ -18,8 +18,8 @@
 		
 		<div class="footer-contact">
 		   
-			<a href="mailto::info@terratours.com" class="footer-contact-link">info@terratours.com</a>
-			
+			<a href="mailto::info@terratours.com" class="footer-contact-link">info@terratours.com</a> | 
+			<a href="<?php echo esc_url( home_url( '/general-policies' ) ); ?>">General policies</a>
 		</div>
 		 <div class="footer-copyright">
 		 <span class="copy">Copyright © 2017. All Rights Reserved.</span>   
