@@ -11,6 +11,8 @@
  * Template Name: Page Private Shuttle 
  * @package terratours
  */
+$q = get_query_var('search');
+var_dump(get_query_var('search'));
 
 get_header(); ?>
  <?php if ( has_post_thumbnail() ) :
@@ -48,36 +50,65 @@ get_header(); ?>
 
 				
 
-			endwhile; // End of the loop.
+      endwhile; // End of the loop.
+      
+  
 			?>
-              
+         <div class="transfer-filters">
+					<form method="get" action="<?php echo esc_url( home_url( '/private-transport/?search='. $q) ); ?>" class="form-filters-transfer">
+						<input type="search" class="search-field" placeholder="<?php echo esc_attr_x( 'Search Destination…', 'placeholder' ) ?>" value="<?php echo $q ?>" name="search" title="" />
+						 <!-- <input type="submit" class="search-submit" value="<?php echo esc_attr_x( 'Search', 'submit button' ) ?>" /> -->
+					</form>
+					
+				</div>     
 			  <ul class="featured-items">
             	
             
             <?php
 
                  $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-
+                
+               if($q){
+               
                 $args = array(
-                  'post_type' => 'product',
-                  //'order' => 'ASC',
-                  'orderby' => array('menu_order' => 'ASC', 'title' => 'ASC'),
-                  'posts_per_page' => 50,
-                   'paged' => $paged,
-                 'tax_query' => array(
-                    array(
-                      'taxonomy' => 'product_cat',
-                      'field' => 'slug',
-                      'terms' => 'private-shuttle'
+                    'post_type' => 'product',
+                    's' => $q,
+                    'orderby' => array('menu_order' => 'ASC', 'title' => 'ASC'),
+                    'posts_per_page' => 50,
+                    'paged' => $paged,
+                  'tax_query' => array(
+                      array(
+                        'taxonomy' => 'product_cat',
+                        'field' => 'slug',
+                        'terms' => 'private-shuttle'
+                      )
                     )
-                  )
-                  
-                );
+                    
+                  );
+                
+              }else{
+                $args = array(
+                    'post_type' => 'product',
+                    //'order' => 'ASC',
+                    'orderby' => array('menu_order' => 'ASC', 'title' => 'ASC'),
+                    'posts_per_page' => 50,
+                    'paged' => $paged,
+                  'tax_query' => array(
+                      array(
+                        'taxonomy' => 'product_cat',
+                        'field' => 'slug',
+                        'terms' => 'private-shuttle'
+                      )
+                    )
+                    
+                  );
+              }
                 $items = new WP_Query( $args );
                  // Pagination fix
                   $temp_query = $wp_query;
                   $wp_query   = NULL;
                   $wp_query   = $items;
+                 
                   
                 if( $items->have_posts() ) {
                   while( $items->have_posts() ) {
@@ -108,7 +139,7 @@ get_header(); ?>
                 }
                 
               ?>
-              </div>
+              </ul>
               <?php  the_posts_pagination( array( 'mid_size' => 2 ) ); 
                     wp_reset_postdata(); ?>
 

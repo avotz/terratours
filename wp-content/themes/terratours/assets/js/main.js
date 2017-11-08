@@ -68,7 +68,10 @@
 
  
 $(window).load(function() {
-     
+  setTimeout(function() {
+    $('.product-template-default').find('.woocommerce-message').hide();
+  }, 3000);
+  
       resize();
 
 });

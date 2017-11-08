@@ -1787,6 +1787,13 @@ body.home .featured-items {
 .product-description {
   line-height: 20px;
 }
+.transfer-filters {
+  max-width: 600px;
+  margin-bottom: 1rem;
+}
+.transfer-filters input[type="search"] {
+  padding: 0 0.5rem;
+}
 .woocommerce-breadcrumb,
 .product_meta {
   display: none;
@@ -2076,6 +2083,37 @@ form.woocommerce-checkout {
 .product-template-default .woocommerce-message .button {
   background-color: #64b4dc !important;
   color: #fff !important;
+}
+.tourtransfer_details {
+  margin-top: 1rem;
+  -webkit-box-pack: start;
+  -moz-box-pack: start;
+  -o-box-pack: start;
+  -ms-flex-pack: start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+}
+.tourtransfer_details_item {
+  width: 100%;
+}
+.tourtransfer_details_item h2 {
+  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: bold;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+@media screen and (min-width: 1000px) {
+  .tourtransfer_details_item {
+    width: 30%;
+    padding: 0.5rem;
+  }
+  .tourtransfer_details_item h2 {
+    white-space: nowrap;
+    width: 20em;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+  }
 }
 
 /*!

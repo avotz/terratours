@@ -132,6 +132,15 @@ function terratours_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'terratours_scripts' );
 
+/*function title_filter( $where, &$wp_query )
+{
+    global $wpdb;
+    if ( $search_term = $wp_query->get( 'search_prod_title' ) ) {
+        $where .= ' AND ' . $wpdb->posts . '.post_title LIKE \'%' . esc_sql( like_escape( $search_term ) ) . '%\'';
+    }
+    return $where;
+}*/
+
 /**
  * Implement the Custom Header feature.
  */

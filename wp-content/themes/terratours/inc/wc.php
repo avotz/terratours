@@ -169,10 +169,11 @@ function custom_override_checkout_fields( $fields ) {
 // function my_checkout_msg() {
 // 	echo '<p>This page is 100% secure. Thank you for your business!</p>';
 // }
+
 /**
  * Add the field to the checkout
  */
-add_action( 'woocommerce_after_order_notes', 'my_custom_checkout_field' );
+/*add_action( 'woocommerce_after_order_notes', 'my_custom_checkout_field' );
 
 function my_custom_checkout_field( $checkout ) {
 
@@ -218,22 +219,15 @@ function my_custom_checkout_field( $checkout ) {
               'required'  => true,
               ), $checkout->get_value( 'airline' ));
 
-    /*woocommerce_form_field( 'tour_date', array(
-        'type'          => 'text',
-        'class'         => array('my-field-class form-row-wide'),
-        'label'         => __('Tour date'),
-        'placeholder'   => __('dd/mm/yyyy'),
-        'required'  => true,
-        'input_class' => array('datepicker')
-        ), $checkout->get_value( 'tour_date' ));*/
+   
 
     echo '</div>';
 
-}
+}*/
 /**
  * Process the checkout
  */
-add_action('woocommerce_checkout_process', 'my_custom_checkout_field_process');
+/*add_action('woocommerce_checkout_process', 'my_custom_checkout_field_process');
 
 function my_custom_checkout_field_process() {
     // Check if set, if its not set add an error.
@@ -252,11 +246,11 @@ function my_custom_checkout_field_process() {
         if ( ! $_POST['pickup_time'] )
         wc_add_notice( __( '<strong>Pick up time</strong> is a required field.' ), 'error' );
 }
-
+*/
 /**
  * Update the order meta with field value
  */
-add_action( 'woocommerce_checkout_update_order_meta', 'my_custom_checkout_field_update_order_meta' );
+/*add_action( 'woocommerce_checkout_update_order_meta', 'my_custom_checkout_field_update_order_meta' );
 
 function my_custom_checkout_field_update_order_meta( $order_id ) {
     if ( ! empty( $_POST['pickup_location'] ) ) {
@@ -274,12 +268,12 @@ function my_custom_checkout_field_update_order_meta( $order_id ) {
   if ( ! empty( $_POST['pickup_time'] ) ) {
     update_post_meta( $order_id, 'Pick up time', sanitize_text_field( $_POST['pickup_time'] ) );
 }
-}
+}*/
 
 /**
  * Display field value on the order edit page
  */
-add_action( 'woocommerce_admin_order_data_after_billing_address', 'my_custom_checkout_field_display_admin_order_meta', 10, 1 );
+/*add_action( 'woocommerce_admin_order_data_after_billing_address', 'my_custom_checkout_field_display_admin_order_meta', 10, 1 );
 
 function my_custom_checkout_field_display_admin_order_meta($order){
     echo '<p><strong>'.__('Pick up location').':</strong> ' . get_post_meta( $order->id, 'Pick up location', true ) . '</p>';
@@ -287,7 +281,244 @@ function my_custom_checkout_field_display_admin_order_meta($order){
     echo '<p><strong>'.__('Flight').':</strong> ' . get_post_meta( $order->id, 'Flight', true ) . '</p>';
     echo '<p><strong>'.__('Airline').':</strong> ' . get_post_meta( $order->id, 'Airline', true ) . '</p>';
     echo '<p><strong>'.__('Pick up time').':</strong> ' . get_post_meta( $order->id, 'Pick up time', true ) . '</p>';
+}*/
+
+//dynamic checkout fields
+
+function terratours_filter_checkout_fields($fields){
+    $fields['extra_fields'] = array(
+    'tourtransfer_details' => array(
+        'type' => 'tourtransfer_details',
+        'required'      => false,
+        'label' => __( 'Item Details' )
+        ),
+    );
+
+    return $fields;
+
 }
+add_filter( 'woocommerce_checkout_fields', 'terratours_filter_checkout_fields' );
+
+
+function terratours_filter_checkout_field_group( $field, $key, $args, $value ){
+    $op_cart_count = WC()->cart->get_cart();//get_cart_contents_count();
+  
+    $html = '';
+    $html .= '<div class="tourtransfer_details flex-container-sb">';  
+    //for ( $i = 1; $i <= $op_cart_count; $i++) {
+  foreach ( WC()->cart->get_cart() as $cart_item ) {
+        $item_name = $cart_item['data']->get_title();
+        $i = $cart_item['data']->get_id();
+    
+
+        $html .= '<div class="tourtransfer_details_item">';  
+        $html .= '<h2>'. $item_name .'</h2>'; 
+        $html .= woocommerce_form_field( "tourtransfer_details[$i][pickup_location]", array(
+            "type" => "text",
+            "return" => true,
+            "value" => "",
+            "required"      => true,
+            "label" => __( "Pick up" )
+            )
+        );
+        $html .= woocommerce_form_field( "tourtransfer_details[$i][dropoff_location]", array(
+            "type" => "text",
+            "return" => true,
+            "value" => "",
+            "required"      => true,
+            "label" => __( "Drop Off" )
+            )
+        );
+         $html .= woocommerce_form_field( "tourtransfer_details[$i][passengers]", array(
+            "type"          => "text",
+            "return" => true,
+            "value" => "",
+            "class"         => array("date-of-birth form-row-wide"),
+            "required"      => true,
+            "label"         => __("Passengers"),
+    
+        
+            )
+        );
+         $html .= woocommerce_form_field( "tourtransfer_details[$i][time]", array(
+            "type" => "text",
+            "return" => true,
+            "value" => "",
+            "required"      => true,
+            "label" => __( "Pickup time" )
+            )
+        );
+        $html .= woocommerce_form_field( "tourtransfer_details[$i][flight]", array(
+            "type" => "text",
+            "return" => true,
+            "value" => "",
+            "required"      => true,
+            "label" => __( "Flight" )
+            )
+        );
+       
+       
+        $html .= woocommerce_form_field( "tourtransfer_details[$i][airline]", array(
+            "type"          => "text",
+            "return" => true,
+            "value" => "",
+            "required"      => false,
+            "label"         => __("Airline"),
+    
+        
+            )
+        );
+
+        $html .='</div>';
+     
+
+    }
+    $html .='</div>';
+    return $html;
+}
+add_filter( 'woocommerce_form_field_tourtransfer_details', 'terratours_filter_checkout_field_group', 10, 4 );
+
+// display the extra field on the checkout form
+function terratours_extra_checkout_fields(){ 
+
+    $checkout = WC()->checkout();
+
+    foreach ( $checkout->checkout_fields['extra_fields'] as $key => $field ) :
+
+        woocommerce_form_field( $key, $field, $checkout->get_value( $key ) );
+
+    endforeach;
+
+
+}
+add_action( 'woocommerce_checkout_after_customer_details' ,'terratours_extra_checkout_fields' );
+
+/**
+ * Sanitize our custom field
+ * 
+ */
+function terratours_custom_process_checkout_field_tourtransfer_details( $posted ){
+
+    $clean = array();
+
+    foreach( $posted as $item ){
+        if ( ! $item["pickup_location"] )
+            wc_add_notice( __( '<strong>Pick up location</strong> is a required field.' ), 'error' );
+
+        if ( ! $item["dropoff_location"] )
+            wc_add_notice( __( '<strong>Drop off location</strong> is a required field.' ), 'error' );
+          
+        if ( ! $item["passengers"] )
+          wc_add_notice( __( '<strong>Pick up time</strong> is a required field.' ), 'error' );
+        
+        if ( ! $item["time"] )
+          wc_add_notice( __( '<strong>Pick up time</strong> is a required field.' ), 'error' );
+        
+        if ( ! $item["flight"] )
+          wc_add_notice( __( '<strong>Flight</strong> is a required field.' ), 'error' );
+
+
+        $details = terratours_custom_checkout_clean_tourtransfer_details( $item );
+
+        if( ! empty( $details ) ){
+            $clean[] = $details;
+        }
+    }
+
+    return $clean;
+}
+add_filter( 'woocommerce_process_checkout_tourtransfer_details_field', 'terratours_custom_process_checkout_field_tourtransfer_details' );
+
+
+function terratours_custom_checkout_clean_tourtransfer_details( $item = array() ){
+    $details = array();
+    if( isset( $item["pickup_location"] ) ){
+        $details['pickup_location'] = sanitize_text_field( $item["pickup_location"] );
+    }
+    if( isset( $item["dropoff_location"] ) ){
+        $details['dropoff_location'] = sanitize_text_field( $item["dropoff_location"] );
+    }
+    if( isset( $item["flight"] ) ){
+        $details['flight'] = sanitize_text_field( $item["flight"] );
+    }
+    if( isset( $item["time"] ) ){
+        $details['time'] = sanitize_text_field( $item["time"] );
+    }
+    if( isset( $item["passengers"] ) ){
+        $details['passengers'] = sanitize_text_field( $item["passengers"] );
+    }
+    if( isset( $item["airline"] ) ){
+        $details['airline'] = sanitize_text_field( $item["airline"] );
+    }
+   
+    return $details;
+}
+
+
+/**
+ * update_post_meta
+ * 
+ */
+function terratours_custom_checkout_field_update_order_meta( $order_id, $posted ){
+
+    if( ! empty( $posted["tourtransfer_details"] ) ){
+        update_post_meta( $order_id, "_tourtransfer_details", $posted["tourtransfer_details"] );
+    } else {
+        delete_post_meta( $order_id, "_tourtransfer_details" );
+    }
+
+}
+add_action( 'woocommerce_checkout_update_order_meta', 'terratours_custom_checkout_field_update_order_meta', 10, 2 );
+
+
+// display the extra data in the order admin panel
+function terratours_display_order_data_in_admin( $order ){  
+
+    $tourtransfer_details = get_post_meta( $order->id, "_tourtransfer_details", true ); 
+
+    if( ! empty( $tourtransfer_details ) ) { 
+
+        $tourtransfer_defaults = array(
+                "pickup_location" => "",
+                "dropoff_location" => "",
+                "flight" => "",
+                "time" => "",
+                "passengers" => "",
+                "airline" => "",
+               
+            );
+
+    ?>
+    <div class="tourtransfer_data">
+        <h4><?php _e( "Services Details", "terratours" ); ?></h4>
+        <?php 
+            $i = 1;
+
+            foreach( $tourtransfer_details as $item ){
+
+                $item = wp_parse_args( $item, $tourtransfer_defaults );
+
+                echo "<p><strong>" . sprintf( __( "Item #%s", "terratours" ), $i  ) . "</strong>" . "<br/>";
+                echo __( "Pick up", "terratours" ) . ' : ' . $item["pickup_location"] . "<br/>";
+                echo __( "Drop off", "terratours" ) . ' : ' . $item["dropoff_location"] . "<br/>";
+                echo __( "Flight", "terratours" ) . ' : ' . $item["flight"] . "<br/>";
+                echo __( "Pick up time", "terratours" ) . ' : ' . $item["time"] . "<br/>";
+                echo __( "Passengers", "terratours" ) . ' : ' . $item["passengers"] . "<br/>";
+                echo __( "Airline", "terratours" ) . ' : ' . $item["airline"] . "<br/>";
+                
+
+                echo "</p>";
+
+                $i++;
+
+            }
+
+         ?>
+    </div>
+<?php }
+}
+add_action( "woocommerce_admin_order_data_after_order_details", "terratours_display_order_data_in_admin" );
+
 
 
 

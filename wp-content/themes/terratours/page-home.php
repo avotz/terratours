@@ -16,8 +16,8 @@ get_header(); ?>
 <div id="bgImage" style="background-image: url(<?php echo get_template_directory_uri();  ?>/img/banner2.png); display:block;"></div>
         <ul id="bannerNav">
             <li rel="<?php echo get_template_directory_uri();  ?>/img/banner2.png" class="on"></li>
-            <li rel="<?php echo get_template_directory_uri();  ?>/img/banner3.png"></li>
-            <li rel="<?php echo get_template_directory_uri();  ?>/img/banner1.png"></li>
+            <li rel="<?php echo get_template_directory_uri();  ?>/img/banner-1.png"></li>
+            <li rel="<?php echo get_template_directory_uri();  ?>/img/banner-3.png"></li>
         </ul>
 <section class="banner">
           
@@ -26,7 +26,73 @@ get_header(); ?>
      <section class="hexagonals">
         <div class="inner">
             <ul class="featured-items">
-                <li class="image">
+                <li class="quizLink link">
+                            <span class="hex1"><span class="hex2"><a href="#" class="hexInner">
+                                <span class="title">Featured</span>
+                                <span class="subtitle">Tours & Destinations</span>
+                            
+                            </a></span></span>
+                        </li>
+                <?php
+
+                 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+
+                $args = array(
+                  'post_type' => 'product',
+                  //'order' => 'ASC',
+                  'orderby' => array('menu_order' => 'ASC', 'title' => 'ASC'),
+                  'posts_per_page' => 13,
+                   'paged' => $paged,
+                 'tax_query' => array(
+                    array(
+                      'taxonomy' => 'product_cat',
+                      'field' => 'slug',
+                      'terms' => 'featured'
+                    )
+                  )
+                  
+                );
+                $items = new WP_Query( $args );
+                 // Pagination fix
+                  $temp_query = $wp_query;
+                  $wp_query   = NULL;
+                  $wp_query   = $items;
+                  
+                if( $items->have_posts() ) {
+                  while( $items->have_posts() ) {
+                     $items->the_post();
+                   
+                    ?>
+                         <li class="image">
+                            <span class="hex1"><span class="hex2"><a href="<?php the_permalink(); ?>" class="hexInner">
+                                <span class="title"><?php the_title(); ?></span>
+                                <?php if ( has_post_thumbnail() ) :
+
+                                          $id = get_post_thumbnail_id($post->ID);
+                                          $thumb_url = wp_get_attachment_image_src($id,'tour-item', true);
+                                          ?>
+                                          
+                                          <img src="<?php echo $thumb_url[0] ?>"  alt="<?php the_title(); ?>" title="<?php the_title(); ?>">
+                                        
+                                      <?php endif; ?>
+                                      
+                               
+                            </a></span></span>
+                        </li>
+                         
+                        
+                      
+                      
+                    <?php
+                   
+                     
+                  } 
+
+                  
+              }
+                
+              ?>
+                <!-- <li class="image">
                     <span class="hex1"><span class="hex2"><a href="#" class="hexInner">
                         <span class="title">Lorem ipsum</span>
                         <img src="<?php echo get_template_directory_uri();  ?>/img/item.jpg">
@@ -115,7 +181,7 @@ get_header(); ?>
                                         <a href="#" class="hexInner"><img src="<?php echo get_template_directory_uri();  ?>/img/item4.jpg"></a>
                                     </span></span>
                 </li>
-              
+               -->
             </ul>
         </div>
         
