@@ -12,7 +12,6 @@
  * @package terratours
  */
 $q = get_query_var('search');
-var_dump(get_query_var('search'));
 
 get_header(); ?>
  <?php if ( has_post_thumbnail() ) :
