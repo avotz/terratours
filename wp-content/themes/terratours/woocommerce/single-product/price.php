@@ -23,11 +23,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $product;
 
 /*$categories = get_the_terms( $product->ID, 'product_cat' );
-$cat = 'tour';
+$cat = 'shared-shuttle';
+$shared = false;
 
 foreach ($categories as $category) {
-if($category->parent == 0){
-   $cat = $category->slug;
+if($category->slug == $cat){
+   $shared = true;
 }
 
 }*/
@@ -38,12 +39,14 @@ if($category->parent == 0){
 	
 
 		<p class="price"><?php echo $product->get_price_html(); ?></p>
-		<a href="#tour-popup" class="btn success tour-popup-link" data-title="<?php echo $product->get_slug(); ?>">
+           
+		<?php if(!has_term( 'shared-shuttle', 'product_cat', $product->ID )): ?>
+            <a href="#tour-popup" class="btn success tour-popup-link" data-title="<?php echo $product->get_slug(); ?>">
 	  
        Inquiry Now!
       
       </a>
-	
+<?php endif; ?>
 	
 
 </div>

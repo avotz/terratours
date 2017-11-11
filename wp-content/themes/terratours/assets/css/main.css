@@ -2018,10 +2018,13 @@ body.home .featured-items {
   width: 100%;
 }
 @media screen and (min-width: 1000px) {
-  .picker.hasDatepicker {
+  .wc-bookings-date-picker {
     position: absolute;
-    right: -223px;
+    right: -253px;
     top: 124px;
+  }
+  .wc-bookings-date-picker legend {
+    color: #fff;
   }
 }
 .tour-gallery {

@@ -520,6 +520,11 @@ function terratours_display_order_data_in_admin( $order ){
 add_action( "woocommerce_admin_order_data_after_order_details", "terratours_display_order_data_in_admin" );
 
 
+add_filter( 'woocommerce_booking_single_check_availability_text', 'wooninja_booking_check_availability_text' );
+
+function wooninja_booking_check_availability_text() {
+	return "Add To Cart";
+}
 
 
 
