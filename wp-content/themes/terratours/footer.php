@@ -36,9 +36,9 @@
 </footer>
 <div class="site-social">
 
-<a href="#" class="site-social-link"><i class="fa fa-facebook"></i></a>
-<a href="#" class="site-social-link"><i class="fa fa-google-plus"></i></a>
-<a href="#" class="site-social-link"><i class="fa fa-youtube"></i></a>
+<a href="https://www.facebook.com/terratour.nosara" class="site-social-link" target="_blank"><i class="fa fa-facebook"></i></a>
+<a href="https://www.tripadvisor.com/Attraction_Review-g656474-d7149715-Reviews-Terratour_Nosara-Nosara_Province_of_Guanacaste.html" class="site-social-link" target="_blank"><i class="fa fa-tripadvisor"></i></a>
+
 </div>
 
 <div id="tour-popup" class="request-popup white-popup mfp-hide mfp-with-anim">

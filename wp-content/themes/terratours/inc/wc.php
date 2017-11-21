@@ -307,7 +307,9 @@ function terratours_filter_checkout_field_group( $field, $key, $args, $value ){
     $html .= '<div class="tourtransfer_details flex-container-sb">';  
     //for ( $i = 1; $i <= $op_cart_count; $i++) {
   foreach ( WC()->cart->get_cart() as $cart_item ) {
-        $item_name = $cart_item['data']->get_title();
+      
+        $product = $cart_item['data'];
+        $item_name = $product->get_title();
         $i = $cart_item['data']->get_id();
     
 
@@ -340,19 +342,33 @@ function terratours_filter_checkout_field_group( $field, $key, $args, $value ){
         
             )
         );
-         $html .= woocommerce_form_field( "tourtransfer_details[$i][time]", array(
-            "type" => "text",
-            "return" => true,
-            "value" => "",
-            "required"      => true,
-            "label" => __( "Pickup time" )
-            )
-        );
+        if( has_term( 'Shared shuttle', 'product_cat', $product->id)){
+
+            $html .= woocommerce_form_field( "tourtransfer_details[$i][time]", array(
+                "type" => "text",
+                "return" => true,
+                'default' => 'N/A',
+                "required"      => true,
+                "label" => __( "Pickup time" ),
+                "custom_attributes" => array('readonly'=>'readonly')
+                )
+            );
+
+        }else{
+            $html .= woocommerce_form_field( "tourtransfer_details[$i][time]", array(
+                "type" => "text",
+                "return" => true,
+                "value" => "",
+                "required"    => true,
+                "label" => __( "Pickup time" )
+                )
+            );
+        }
         $html .= woocommerce_form_field( "tourtransfer_details[$i][flight]", array(
             "type" => "text",
             "return" => true,
             "value" => "",
-            "required"      => true,
+            "required"      => false,
             "label" => __( "Flight" )
             )
         );
@@ -402,6 +418,7 @@ function terratours_custom_process_checkout_field_tourtransfer_details( $posted 
     $clean = array();
 
     foreach( $posted as $item ){
+        
         if ( ! $item["pickup_location"] )
             wc_add_notice( __( '<strong>Pick up location</strong> is a required field.' ), 'error' );
 
@@ -409,13 +426,13 @@ function terratours_custom_process_checkout_field_tourtransfer_details( $posted 
             wc_add_notice( __( '<strong>Drop off location</strong> is a required field.' ), 'error' );
           
         if ( ! $item["passengers"] )
-          wc_add_notice( __( '<strong>Pick up time</strong> is a required field.' ), 'error' );
+          wc_add_notice( __( '<strong>Passengers</strong> is a required field.' ), 'error' );
         
         if ( ! $item["time"] )
           wc_add_notice( __( '<strong>Pick up time</strong> is a required field.' ), 'error' );
         
-        if ( ! $item["flight"] )
-          wc_add_notice( __( '<strong>Flight</strong> is a required field.' ), 'error' );
+       /* if ( ! $item["flight"] )
+          wc_add_notice( __( '<strong>Flight</strong> is a required field.' ), 'error' );*/
 
 
         $details = terratours_custom_checkout_clean_tourtransfer_details( $item );
