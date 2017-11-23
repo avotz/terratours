@@ -13,9 +13,9 @@
  */
 
 get_header(); ?>
-<div id="bgImage" style="background-image: url(<?php echo get_template_directory_uri();  ?>/img/banner2.png); display:block;"></div>
+<div id="bgImage" style="background-image: url(<?php echo get_template_directory_uri();  ?>/img/banner2.jpg); display:block;"></div>
         <ul id="bannerNav">
-            <li rel="<?php echo get_template_directory_uri();  ?>/img/banner2.png" class="on"></li>
+            <li rel="<?php echo get_template_directory_uri();  ?>/img/banner2.jpg" class="on"></li>
             <li rel="<?php echo get_template_directory_uri();  ?>/img/banner-1.png"></li>
             <li rel="<?php echo get_template_directory_uri();  ?>/img/banner-3.png"></li>
         </ul>
