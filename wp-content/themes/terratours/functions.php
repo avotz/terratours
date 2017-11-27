@@ -176,3 +176,14 @@ if ( defined( 'JETPACK__VERSION' ) ) {
   * Implement the metabox custom post type.
   */
  require get_template_directory() . '/inc/cpt.php';
+
+ /*function mailtrap($phpmailer) {
+  $phpmailer->isSMTP();
+  $phpmailer->Host = 'smtp.mailtrap.io';
+  $phpmailer->SMTPAuth = true;
+  $phpmailer->Port = 2525;
+  $phpmailer->Username = '2dc54a8dfa9489';
+  $phpmailer->Password = '95bc1229416301';
+}
+
+add_action('phpmailer_init', 'mailtrap');*/

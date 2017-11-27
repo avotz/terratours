@@ -315,6 +315,15 @@ function terratours_filter_checkout_field_group( $field, $key, $args, $value ){
 
         $html .= '<div class="tourtransfer_details_item">';  
         $html .= '<h2>'. $item_name .'</h2>'; 
+        $html .= '<input type="hidden" name="tourtransfer_details['.$i.'][item_id]" value="'. $product->get_id().'" />'; 
+        $html .= woocommerce_form_field( "tourtransfer_details[$i][item_id]", array(
+            "type" => "hidden",
+            "return" => true,
+            "value" => "",
+            "required"      => false,
+            "label" => __( "Item id" )
+            )
+        );
         $html .= woocommerce_form_field( "tourtransfer_details[$i][pickup_location]", array(
             "type" => "text",
             "return" => true,
@@ -449,6 +458,9 @@ add_filter( 'woocommerce_process_checkout_tourtransfer_details_field', 'terratou
 
 function terratours_custom_checkout_clean_tourtransfer_details( $item = array() ){
     $details = array();
+    if( isset( $item["item_id"] ) ){
+        $details['item_id'] = sanitize_text_field( $item["item_id"] );
+    }
     if( isset( $item["pickup_location"] ) ){
         $details['pickup_location'] = sanitize_text_field( $item["pickup_location"] );
     }
@@ -496,6 +508,7 @@ function terratours_display_order_data_in_admin( $order ){
     if( ! empty( $tourtransfer_details ) ) { 
 
         $tourtransfer_defaults = array(
+                "item_id" => "",
                 "pickup_location" => "",
                 "dropoff_location" => "",
                 "flight" => "",
@@ -542,6 +555,67 @@ add_filter( 'woocommerce_booking_single_check_availability_text', 'wooninja_book
 function wooninja_booking_check_availability_text() {
 	return "Add To Cart";
 }
+//custom fields emails
+
+add_action( 'woocommerce_email_order_meta', 'terratours_add_email_order_meta', 10, 3 );
+
+function terratours_add_email_order_meta( $order_obj, $sent_to_admin, $plain_text ){
+ 
+ 
+	// ok, if it is the gift order, get all the other fields
+	
+     $tourtransfer_details = get_post_meta( $order_obj->id, "_tourtransfer_details", true ); 
+
+     foreach ($order_obj->get_items() as $item_id => $item_data) {
+         
+        $product = $item_data->get_product();
+
+            foreach( $tourtransfer_details as $item ){
+                if($product->get_id() == $item["item_id"]){
+                    $pickup = $item["pickup_location"];
+                    $dropoff = $item["dropoff_location"];
+                    $flight = $item["flight"];
+                    $time = $item["time"];
+                    $passengers = $item["passengers"];
+                    $airline = $item["airline"];
+
+                    if ( $plain_text === false ) {
+        
+                        // you shouldn't have to worry about inline styles, WooCommerce adds them itself depending on the theme you use
+                        echo '<h2>Additional Information '. $product->get_name() .'</h2>
+                        <ul>
+                        <li><strong>Pick up</strong> ' . $pickup . '</li>
+                        <li><strong>Drop off:</strong> ' . $dropoff . '</li>
+                        <li><strong>Flight:</strong> ' . $flight . '</li>
+                        <li><strong>Pick up time:</strong> ' . $time . '</li>
+                        <li><strong>Passengers:</strong> ' . $passengers . '</li>
+                        <li><strong>Airline:</strong> ' . $airline . '</li>
+                        </ul>';
+                
+                    } else {
+                
+                        echo "Additional Information\n
+                        Pick up: $pickup
+                        Gift Wrap: $dropoff
+                        Recipient name: $flight
+                        Gift message: $time
+                        Recipient name: $passengers
+                        Recipient name: $airline";
+                
+                    }
+                }
+                
+            
+        
+        }
+
+     }
+    
+
+	
+}
+
+
 
 
 
