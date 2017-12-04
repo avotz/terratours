@@ -1660,8 +1660,6 @@ body.home .featured-items {
   .contact-media {
     width: 48%;
   }
-  .about-info iframe,
-  .contact-info iframe,
   .about-media iframe,
   .contact-media iframe {
     height: 400px;
