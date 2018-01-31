@@ -115,7 +115,7 @@ get_header(); ?>
                    
                     ?>
                          <li class="image">
-                            <span class="hex1"><span class="hex2"><a href="<?php the_permalink(); ?>" class="hexInner">
+                            <span class="hex1"><span class="hex2"><a href="<?php ($post->ID == 122) ? 'https://reservations.nosara.com' : the_permalink(); ?>" class="hexInner">
                                 <span class="title"><?php the_title(); ?></span>
                                 <?php if ( has_post_thumbnail() ) :
 
