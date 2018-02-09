@@ -13,16 +13,17 @@
  * @see 	    https://docs.woocommerce.com/document/template-structure/
  * @author 		WooThemes
  * @package 	WooCommerce/Templates
- * @version     2.0.0
+ * @version     3.3.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
-get_header( 'shop' ); ?>
+get_header( 'shop' );
+?>
 
-            <div id="bgImage" style="background-image: url(<?php echo get_template_directory_uri();  ?>/img/banner2.png); display:block;"></div>
+  <div id="bgImage" style="background-image: url(<?php echo get_template_directory_uri();  ?>/img/banner2.png); display:block;"></div>
             <!-- <ul id="bannerNav">
                 <li rel="<?php echo get_template_directory_uri();  ?>/img/banner2.png" class="on"></li>
             
@@ -113,5 +114,6 @@ get_header( 'shop' ); ?>
 		</div><!-- #main -->
 	</section><!-- #primary -->
 
-	
-<?php get_footer( 'shop' ); ?>
+
+<?php
+get_footer( 'shop' );
